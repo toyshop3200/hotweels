@@ -858,15 +858,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-<!-- Ícono del carrito -->
-<img src="img/carrito.png" id="cart-icon" alt="Carrito">
-<span id="cart-count">0</span>
-
-<!-- Ventana lateral del carrito -->
-<div id="cart-sidebar">
-  <h2>Mi Carrito</h2>
-  <div id="cart-items"></div>
-  <p>Total: $<span id="cart-total">0</span> MXN</p>
+<img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; left:20px; width:50px; cursor:pointer; z-index:1000;">
+<span id="cart-count" style="position:fixed; top:10px; left:50px; color:white; background:red; border-radius:50%; padding:3px 7px; display:none; z-index:1001;">0</span> id="cart-total">0</span> MXN</p>
   <button id="checkout-btn">Pagar ahora</button>
   <button id="cancel-btn">Cancelar pedido</button>
   <button id="close-cart">Cerrar</button>
