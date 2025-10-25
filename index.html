@@ -876,7 +876,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const { jsPDF } = window.jspdf;
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const products = document.querySelectorAll('.product');
     const cartIcon = document.getElementById('cart-icon');
     const cartCount = document.getElementById('cart-count');
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelBtn = document.getElementById('cancel-btn');
     const closeCartBtn = document.getElementById('close-cart');
 
-    // Función para actualizar carrito
+    // Función para actualizar carrito y asignar eventos
     function updateCartUI(){
         // Contador
         const totalQty = cart.reduce((a,b)=>a+b.qty,0);
@@ -906,10 +906,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Quitar producto
             div.querySelector('span').addEventListener('click',(e)=>{
-                const idx=parseInt(e.target.dataset.index);
-                const prodStockElem = cart[idx].prodElem.querySelector('.stock');
-                let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,''));
-                prodStockElem.textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                const idx = parseInt(e.target.dataset.index);
+                const prod = Array.from(products).find(p => p.querySelector('.name').textContent === cart[idx].name);
+                if(prod){
+                    let currentStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
+                    prod.querySelector('.stock').textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                }
                 cart.splice(idx,1);
                 saveCart();
                 updateCartUI();
@@ -924,9 +926,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('cart',JSON.stringify(cart));
     }
 
-    // Añadir al carrito
+    // Botón añadir al carrito
     products.forEach(prod=>{
-        const stock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
         const btn = document.createElement('button');
         btn.innerHTML = '🛒 Añadir al carrito';
         btn.style.background='green';
@@ -938,24 +939,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btn.addEventListener('click', ()=>{
             let availableStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
-            if(availableStock<=0){
-                alert('Stock insuficiente');
-                return;
-            }
+            if(availableStock<=0){ alert('Stock insuficiente'); return; }
             let qty = parseInt(prompt(`¿Cuántas unidades quieres agregar? (Stock: ${availableStock})`,1));
             if(isNaN(qty)||qty<=0) return;
-            if(qty>availableStock){alert('Stock insuficiente'); return;}
+            if(qty>availableStock){ alert('Stock insuficiente'); return; }
 
             const name = prod.querySelector('.name').textContent;
             const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
             const existing = cart.find(item=>item.name===name);
             if(existing){
-                if(existing.qty+qty>availableStock){alert('Stock insuficiente'); return;}
-                existing.qty+=qty;
+                if(existing.qty+qty>availableStock){ alert('Stock insuficiente'); return; }
+                existing.qty += qty;
             }else{
-                cart.push({name,price,qty,prodElem:prod});
+                cart.push({name,price,qty});
             }
-            prod.querySelector('.stock').textContent = `Existencias: ${availableStock-qty}`;
+
+            prod.querySelector('.stock').textContent = `Existencias: ${availableStock - qty}`;
             saveCart();
             updateCartUI();
         });
@@ -964,19 +963,23 @@ document.addEventListener('DOMContentLoaded', () => {
     cartIcon.addEventListener('click',()=>{cartSidebar.style.right='0';});
     closeCartBtn.addEventListener('click',()=>{cartSidebar.style.right='-400px';});
 
+    // Cancelar pedido
     cancelBtn.addEventListener('click',()=>{
         cart.forEach(item=>{
-            const prodStockElem = item.prodElem.querySelector('.stock');
-            let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,'')) || 0;
-            prodStockElem.textContent = `Existencias: ${currentStock + item.qty}`;
+            const prod = Array.from(products).find(p => p.querySelector('.name').textContent === item.name);
+            if(prod){
+                let currentStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
+                prod.querySelector('.stock').textContent = `Existencias: ${currentStock + item.qty}`;
+            }
         });
-        cart.length=0;
+        cart.length = 0;
         saveCart();
         updateCartUI();
     });
 
+    // Generar PDF
     checkoutBtn.addEventListener('click',()=>{
-        if(cart.length===0){alert('El carrito está vacío'); return;}
+        if(cart.length===0){ alert('El carrito está vacío'); return; }
         const doc = new jsPDF();
         doc.setFontSize(16);
         doc.text('Pedido Hot Wheels',10,20);
@@ -994,11 +997,9 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('PDF generado y descargado');
     });
 
-    // Inicializa
     updateCartUI();
 });
 </script>
-
 
 
 
