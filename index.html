@@ -858,7 +858,143 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+<!-- Carrito Icono -->
+<img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; right:20px; width:50px; cursor:pointer;">
+<span id="cart-count" style="position:fixed; top:10px; right:10px; color:white; background:red; border-radius:50%; padding:3px 7px; display:none;">0</span>
 
+<!-- Ventana lateral del carrito -->
+<div id="cart-sidebar" style="position:fixed; top:0; right:-400px; width:400px; height:100%; background:#222; color:white; padding:20px; transition:0.3s; overflow-y:auto; z-index:9999;">
+  <h2>Mi Carrito</h2>
+  <div id="cart-items"></div>
+  <p>Total: $<span id="cart-total">0</span> MXN</p>
+  <button id="checkout-btn" style="background:green; color:white; padding:10px; border:none; cursor:pointer;">Pagar ahora</button>
+  <button id="close-cart" style="background:red; color:white; padding:5px; border:none; cursor:pointer; margin-top:10px;">Cerrar</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cart = [];
+    const products = document.querySelectorAll('.product');
+    const cartIcon = document.getElementById('cart-icon');
+    const cartCount = document.getElementById('cart-count');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const closeCartBtn = document.getElementById('close-cart');
+
+    // Añadir botón debajo de cada producto
+    products.forEach(prod => {
+        const stock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,''));
+        const btn = document.createElement('button');
+        btn.textContent = 'Añadir al carrito';
+        btn.style.background = 'green';
+        btn.style.color = 'white';
+        btn.style.padding = '5px 10px';
+        btn.style.marginTop = '5px';
+        btn.style.cursor = 'pointer';
+        prod.appendChild(btn);
+
+        btn.addEventListener('click', () => {
+            if(stock <= 0) {
+                alert('Stock insuficiente');
+                return;
+            }
+            let cantidad = prompt(`¿Cuántas unidades deseas agregar? (Stock: ${stock})`, 1);
+            cantidad = parseInt(cantidad);
+            if(isNaN(cantidad) || cantidad <= 0) return;
+            if(cantidad > stock) {
+                alert('Stock insuficiente');
+                return;
+            }
+
+            const name = prod.querySelector('.name').textContent;
+            const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
+            // Ver si ya está en el carrito
+            const existing = cart.find(item => item.name === name);
+            if(existing){
+                if(existing.qty + cantidad > stock){
+                    alert('Stock insuficiente');
+                    return;
+                }
+                existing.qty += cantidad;
+            } else {
+                cart.push({name, price, qty:cantidad, prodElem:prod});
+            }
+
+            // Actualizar stock en el producto
+            prod.querySelector('.stock').textContent = `Existencias: ${stock - cantidad}`;
+
+            updateCart();
+        });
+    });
+
+    // Función para actualizar carrito
+    function updateCart(){
+        // Contador carrito
+        const totalQty = cart.reduce((a,b)=>a+b.qty,0);
+        cartCount.textContent = totalQty;
+        cartCount.style.display = totalQty > 0 ? 'inline-block' : 'none';
+
+        // Contenido sidebar
+        cartItems.innerHTML = '';
+        cart.forEach((item,index)=>{
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between';
+            div.style.marginBottom = '5px';
+            div.innerHTML = `${item.name} x ${item.qty} 
+                <span style="cursor:pointer; color:red;" data-index="${index}">X</span>`;
+            cartItems.appendChild(div);
+
+            div.querySelector('span').addEventListener('click',(e)=>{
+                const idx = parseInt(e.target.dataset.index);
+                // Devolver stock al producto
+                const prodStockElem = cart[idx].prodElem.querySelector('.stock');
+                let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,''));
+                prodStockElem.textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                cart.splice(idx,1);
+                updateCart();
+            });
+        });
+
+        const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
+        cartTotal.textContent = total;
+    }
+
+    // Abrir carrito
+    cartIcon.addEventListener('click', ()=>{
+        cartSidebar.style.right = '0';
+    });
+
+    // Cerrar carrito
+    closeCartBtn.addEventListener('click', ()=>{
+        cartSidebar.style.right = '-400px';
+    });
+
+    // Generar PDF
+    checkoutBtn.addEventListener('click', ()=>{
+        if(cart.length === 0) {
+            alert('El carrito está vacío');
+            return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.setFontSize(16);
+        doc.text('Pedido Hot Wheels', 10, 20);
+        let y = 30;
+        cart.forEach(item=>{
+            doc.text(`${item.name} x ${item.qty} = $${item.price*item.qty} MXN`,10,y);
+            y += 10;
+        });
+        const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
+        doc.text(`Total: $${total} MXN`,10,y+10);
+        doc.save('pedido.pdf');
+        alert('PDF generado y descargado');
+    });
+});
+</script>
 
 
 
