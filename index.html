@@ -108,6 +108,53 @@
 </style>
 
 
+<style>
+    /* Estilo para el título de Toy Shop */
+    .neon-title {
+        font-size: 3rem; /* Tamaño del texto */
+        font-family: 'Arial', sans-serif; /* Estilo de la fuente */
+        color: #9b59b6; /* Color morado para el texto */
+        text-align: center; /* Centrado del texto */
+        padding: 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Efecto de marco titilante de neón */
+    .neon-title::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, #8e44ad, #f39c12, #e74c3c, #2ecc71); /* Colores de neón */
+        background-size: 400% 400%;
+        border-radius: 10px;
+        animation: neonPulse 2s ease-in-out infinite;
+        z-index: -1; /* Coloca el borde por detrás del texto */
+    }
+
+    /* Animación que hace que el borde titile */
+    @keyframes neonPulse {
+        0% {
+            background-position: 400% 0%;
+        }
+        50% {
+            background-position: 0% 100%;
+        }
+        100% {
+            background-position: 400% 0%;
+        }
+    }
+</style>
+
+
+
+
+
+
+
 
 
 
