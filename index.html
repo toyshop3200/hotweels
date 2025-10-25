@@ -821,5 +821,30 @@
     }
 </script>
 
+
+<script>
+// Este script oculta automáticamente los productos que tienen "Existencias: 0"
+// y los vuelve a mostrar si más adelante se les actualiza la existencia.
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Selecciona todos los elementos de producto
+  const productos = document.querySelectorAll(".product");
+
+  productos.forEach(producto => {
+    // Busca el texto dentro del div que contiene la existencia
+    const stockText = producto.querySelector(".stock")?.textContent || "";
+    const existencia = parseInt(stockText.replace(/\D/g, "")) || 0;
+
+    // Si no hay existencias, oculta el producto
+    if (existencia === 0) {
+      producto.style.display = "none";
+    } else {
+      producto.style.display = "block";
+    }
+  });
+});
+</script>
+
+
 </body>
 </html>
