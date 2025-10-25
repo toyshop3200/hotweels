@@ -824,22 +824,34 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Selecciona todos los productos
     const productos = document.querySelectorAll(".product");
 
+    function actualizarVisibilidad() {
+        productos.forEach(producto => {
+            const stockDiv = producto.querySelector(".stock");
+            if (stockDiv) {
+                const texto = stockDiv.textContent.trim();
+                // Extrae el número aunque diga "Existencia:" o "Existencias:"
+                const numero = parseInt(texto.replace(/\D/g, ""));
+                
+                // Oculta los productos con existencia 0, muestra los demás
+                if (numero === 0) {
+                    producto.style.display = "none";
+                } else {
+                    producto.style.display = "block";
+                }
+            }
+        });
+    }
+
+    // Ejecutar al cargar la página
+    actualizarVisibilidad();
+
+    // Detectar cambios en el texto del stock (por si lo actualizas luego)
+    const observer = new MutationObserver(actualizarVisibilidad);
     productos.forEach(producto => {
         const stockDiv = producto.querySelector(".stock");
-
-        if (stockDiv) {
-            // Obtiene el número de existencias
-            const texto = stockDiv.textContent.trim();
-            const numero = parseInt(texto.replace(/\D/g, ""));
-
-            // Si la existencia es 0, oculta el producto
-            if (numero === 0) {
-                producto.style.display = "none";
-            }
-        }
+        if (stockDiv) observer.observe(stockDiv, { childList: true, subtree: true, characterData: true });
     });
 });
 </script>
