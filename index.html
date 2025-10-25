@@ -857,79 +857,25 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tienda Hot Wheels</title>
-<style>
-body {background:#111; color:white; font-family:Arial, sans-serif; margin:0; padding:0;}
-.product {background:#222; padding:10px; margin:10px; display:inline-block; vertical-align:top; width:200px; text-align:center; border-radius:8px;}
-.product img {width:150px; height:100px; object-fit:contain; cursor:pointer;}
-.product .name {font-weight:bold; margin-top:5px;}
-.product .brand {color:#aaa; font-size:0.9em;}
-.product .price, .product .stock {margin-top:3px;}
-button {border:none; border-radius:5px;}
-</style>
-</head>
-<body>
-
-<!-- Icono del carrito -->
-<img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; left:20px; width:50px; cursor:pointer; z-index:1000;">
-<span id="cart-count" style="position:fixed; top:10px; left:60px; color:white; background:red; border-radius:50%; padding:3px 7px; display:none; z-index:1001;">0</span>
+<!-- Carrito Icono -->
+<img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; right:20px; width:50px; cursor:pointer; z-index:1000;">
+<span id="cart-count" style="position:fixed; top:10px; right:10px; color:white; background:red; border-radius:50%; padding:3px 7px; display:none; z-index:1001;">0</span>
 
 <!-- Ventana lateral del carrito -->
-<div id="cart-sidebar" style="position:fixed; top:0; left:-400px; width:90%; max-width:400px; height:100%; background:#222; color:white; padding:20px; transition:0.3s; overflow-y:auto; z-index:9999;">
+<div id="cart-sidebar" style="position:fixed; top:0; right:-400px; width:90%; max-width:400px; height:100%; background:#222; color:white; padding:20px; transition:0.3s; overflow-y:auto; z-index:9999;">
   <h2>Mi Carrito</h2>
   <div id="cart-items"></div>
   <p>Total: $<span id="cart-total">0</span> MXN</p>
-  <button id="checkout-btn" style="background:green; color:white; padding:10px; cursor:pointer; width:100%; margin-bottom:10px;">Pagar ahora</button>
-  <button id="cancel-btn" style="background:red; color:white; padding:10px; cursor:pointer; width:100%;">Cancelar pedido</button>
-  <button id="close-cart" style="background:#555; color:white; padding:5px; cursor:pointer; width:100%; margin-top:10px;">Cerrar</button>
+  <button id="checkout-btn" style="background:green; color:white; padding:10px; border:none; cursor:pointer; width:100%; margin-bottom:10px;">Pagar ahora</button>
+  <button id="cancel-btn" style="background:red; color:white; padding:10px; border:none; cursor:pointer; width:100%;">Cancelar pedido</button>
+  <button id="close-cart" style="background:#555; color:white; padding:5px; border:none; cursor:pointer; width:100%; margin-top:10px;">Cerrar</button>
 </div>
-
-<!-- Productos -->
-<div class="product">
-    <img src="img/Dodge_power_wagon_70.jpg" alt="Dodge power wagon 70">
-    <div class="name">Dodge power wagon 70</div>
-    <div class="brand">Matchbox</div>
-    <div class="price">$90 MXN</div>
-    <div class="stock">Existencias: 1</div>
-</div>
-
-<div class="product">
-    <img src="img/Dodge_van.jpg" alt="Dodge van">
-    <div class="name">Dodge van</div>
-    <div class="brand">Hot Wheels</div>
-    <div class="price">$70 MXN</div>
-    <div class="stock">Existencias: 1</div>
-</div>
-
-<div class="product">
-    <img src="img/Donut_drifter.jpg" alt="Donut drifter">
-    <div class="name">Donut drifter</div>
-    <div class="brand">Hot Wheels</div>
-    <div class="price">$90 MXN</div>
-    <div class="stock">Existencias: 1</div>
-</div>
-
-<div class="product">
-    <img src="img/Dune_It_Up.jpg" alt="Dune It Up">
-    <div class="name">Dune It Up</div>
-    <div class="brand">Hot Wheels</div>
-    <div class="price">$90 MXN</div>
-    <div class="stock">Existencias: 0</div>
-</div>
-
-<!-- Agrega aquí todos tus demás productos siguiendo el mismo formato -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const { jsPDF } = window.jspdf;
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const products = document.querySelectorAll('.product');
     const cartIcon = document.getElementById('cart-icon');
     const cartCount = document.getElementById('cart-count');
@@ -940,11 +886,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelBtn = document.getElementById('cancel-btn');
     const closeCartBtn = document.getElementById('close-cart');
 
+    // Función para actualizar carrito y asignar eventos
     function updateCartUI(){
+        // Contador
         const totalQty = cart.reduce((a,b)=>a+b.qty,0);
         cartCount.textContent = totalQty;
         cartCount.style.display = totalQty>0?'inline-block':'none';
 
+        // Items en sidebar
         cartItems.innerHTML = '';
         cart.forEach((item,index)=>{
             const div = document.createElement('div');
@@ -954,11 +903,14 @@ document.addEventListener('DOMContentLoaded', () => {
             div.innerHTML = `${item.name} x ${item.qty} <span style="cursor:pointer;color:red;" data-index="${index}">X</span>`;
             cartItems.appendChild(div);
 
+            // Quitar producto
             div.querySelector('span').addEventListener('click',(e)=>{
-                const idx=parseInt(e.target.dataset.index);
-                const prodStockElem = cart[idx].prodElem.querySelector('.stock');
-                let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,'')) || 0;
-                prodStockElem.textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                const idx = parseInt(e.target.dataset.index);
+                const prod = Array.from(products).find(p => p.querySelector('.name').textContent === cart[idx].name);
+                if(prod){
+                    let currentStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
+                    prod.querySelector('.stock').textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                }
                 cart.splice(idx,1);
                 saveCart();
                 updateCartUI();
@@ -973,8 +925,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('cart',JSON.stringify(cart));
     }
 
+    // Botón añadir al carrito
     products.forEach(prod=>{
-        const stock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
         const btn = document.createElement('button');
         btn.innerHTML = '🛒 Añadir al carrito';
         btn.style.background='green';
@@ -986,45 +938,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btn.addEventListener('click', ()=>{
             let availableStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
-            if(availableStock<=0){
-                alert('Stock insuficiente');
-                return;
-            }
+            if(availableStock<=0){ alert('Stock insuficiente'); return; }
             let qty = parseInt(prompt(`¿Cuántas unidades quieres agregar? (Stock: ${availableStock})`,1));
             if(isNaN(qty)||qty<=0) return;
-            if(qty>availableStock){alert('Stock insuficiente'); return;}
+            if(qty>availableStock){ alert('Stock insuficiente'); return; }
 
             const name = prod.querySelector('.name').textContent;
             const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
             const existing = cart.find(item=>item.name===name);
             if(existing){
-                if(existing.qty+qty>availableStock){alert('Stock insuficiente'); return;}
-                existing.qty+=qty;
+                if(existing.qty+qty>availableStock){ alert('Stock insuficiente'); return; }
+                existing.qty += qty;
             }else{
-                cart.push({name,price,qty,prodElem:prod});
+                cart.push({name,price,qty});
             }
-            prod.querySelector('.stock').textContent = `Existencias: ${availableStock-qty}`;
+
+            prod.querySelector('.stock').textContent = `Existencias: ${availableStock - qty}`;
             saveCart();
             updateCartUI();
         });
     });
 
-    cartIcon.addEventListener('click',()=>{cartSidebar.style.left='0';});
-    closeCartBtn.addEventListener('click',()=>{cartSidebar.style.left='-400px';});
+    cartIcon.addEventListener('click',()=>{cartSidebar.style.right='0';});
+    closeCartBtn.addEventListener('click',()=>{cartSidebar.style.right='-400px';});
 
+    // Cancelar pedido
     cancelBtn.addEventListener('click',()=>{
         cart.forEach(item=>{
-            const prodStockElem = item.prodElem.querySelector('.stock');
-            let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,'')) || 0;
-            prodStockElem.textContent = `Existencias: ${currentStock + item.qty}`;
+            const prod = Array.from(products).find(p => p.querySelector('.name').textContent === item.name);
+            if(prod){
+                let currentStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
+                prod.querySelector('.stock').textContent = `Existencias: ${currentStock + item.qty}`;
+            }
         });
-        cart.length=0;
+        cart.length = 0;
         saveCart();
         updateCartUI();
     });
 
+    // Generar PDF
     checkoutBtn.addEventListener('click',()=>{
-        if(cart.length===0){alert('El carrito está vacío'); return;}
+        if(cart.length===0){ alert('El carrito está vacío'); return; }
         const doc = new jsPDF();
         doc.setFontSize(16);
         doc.text('Pedido Hot Wheels',10,20);
@@ -1041,6 +995,13 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.save('pedido.pdf');
         alert('PDF generado y descargado');
     });
+
+    updateCartUI();
+});
+</script>
+
+
+
 
 </body>
 </html>
