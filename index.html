@@ -121,6 +121,94 @@
 
 
 
+<!-- Marco animado alrededor del título Toy Shop -->
+<style>
+  .neon-frame {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 3px solid #b06cff;
+    border-radius: 20px;
+    position: relative;
+    animation: flicker 2s infinite;
+  }
+
+  /* Efecto neón titilante */
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      box-shadow: 0 0 8px #b06cff, 0 0 16px #b06cff, 0 0 24px #b06cff, 0 0 48px #b06cff;
+      border-color: #b06cff;
+    }
+    20%, 24%, 55% {
+      box-shadow: none;
+      border-color: #552a8b;
+    }
+  }
+
+  /* Luz girando alrededor del marco */
+  .neon-frame::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    border-top-color: #b06cff;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    animation: spin 2.5s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+      border-top-color: #b06cff;
+    }
+    25% {
+      border-right-color: #b06cff;
+      border-top-color: transparent;
+    }
+    50% {
+      border-bottom-color: #b06cff;
+      border-right-color: transparent;
+    }
+    75% {
+      border-left-color: #b06cff;
+      border-bottom-color: transparent;
+    }
+    100% {
+      transform: rotate(360deg);
+      border-left-color: transparent;
+      border-top-color: #b06cff;
+    }
+  }
+
+  .neon-text {
+    font-size: 3em;
+    color: #b06cff;
+    text-shadow: 0 0 10px #b06cff, 0 0 20px #b06cff, 0 0 40px #b06cff;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .title-container {
+    text-align: center;
+    margin-top: 30px;
+  }
+</style>
+
+<div class="title-container">
+  <div class="neon-frame">
+    <span class="neon-text">Toy Shop</span>
+  </div>
+</div>
+
+
+
+
+
 
 <h1>Toy Shop</h1>
 
