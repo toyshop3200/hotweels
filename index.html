@@ -1014,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
         doc.text(`Total: $${total} MXN`,10,y+10);
         doc.save('pedido.pdf');
-        alert('📢PDF generado y descargado, envianos tu tiket de pedido a nuestro whatsapp 🌟5577520204🌟');
+        alert('📢PDF generado y descargado, envianos tu tiket de pedido a nuestro whatsapp para surtirlo 🌟5577520204🌟');
     });
 
     updateCartUI();
