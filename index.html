@@ -121,8 +121,14 @@
 
 
 
-<!-- Marco morado neón con efecto titilante estilo motel -->
+<!-- Título con marco morado neón responsivo estilo motel -->
 <style>
+  .title-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px; /* espacio extra para no encimarse */
+  }
+
   .neon-frame {
     display: inline-block;
     padding: 10px 30px;
@@ -130,9 +136,10 @@
     border-radius: 20px;
     position: relative;
     animation: flicker 2s infinite;
+    box-sizing: border-box;
+    max-width: 90vw; /* evita que se salga de pantalla */
   }
 
-  /* Efecto de luces parpadeando */
   @keyframes flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
       box-shadow: 0 0 8px #b06cff, 0 0 16px #b06cff, 0 0 24px #b06cff, 0 0 48px #b06cff;
@@ -145,16 +152,23 @@
   }
 
   .neon-text {
-    font-size: 3em;
+    font-size: clamp(1.8em, 5vw, 3em); /* se adapta a tamaño de pantalla */
     color: #b06cff;
     text-shadow: 0 0 10px #b06cff, 0 0 20px #b06cff, 0 0 40px #b06cff;
     font-weight: bold;
     font-family: "Poppins", sans-serif;
+    white-space: nowrap;
   }
 
-  .title-container {
-    text-align: center;
-    margin-top: 30px;
+  @media (max-width: 600px) {
+    .title-container {
+      margin-top: 25px;
+      margin-bottom: 60px;
+    }
+    .neon-frame {
+      padding: 8px 20px;
+      border-width: 2px;
+    }
   }
 </style>
 
@@ -163,7 +177,6 @@
     <span class="neon-text">Toy Shop</span>
   </div>
 </div>
-
 
 
 
