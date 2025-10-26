@@ -961,10 +961,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         btn.addEventListener('click', ()=>{
             let availableStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
-            if(availableStock<=0){alert('Stock insuficiente'); return;}
+            if(availableStock<=0){alert('😔Stock insuficiente😤'); return;}
             let qty = parseInt(prompt(`😁¿Cuántas unidades quieres agregar a tu carrito?🤓 (Stock: ${availableStock})`,1));
             if(isNaN(qty)||qty<=0) return;
-            if(qty>availableStock){alert('Stock insuficiente'); return;}
+            if(qty>availableStock){alert('😔Stock insuficiente😤'); return;}
 
             const name = prod.querySelector('.name').textContent;
             const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
