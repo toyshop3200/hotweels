@@ -962,7 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', ()=>{
             let availableStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
             if(availableStock<=0){alert('Stock insuficiente'); return;}
-            let qty = parseInt(prompt(`¿Cuántas unidades quieres agregar? (Stock: ${availableStock})`,1));
+            let qty = parseInt(prompt(`😁¿Cuántas unidades quieres agregar a tu carrito?🤓 (Stock: ${availableStock})`,1));
             if(isNaN(qty)||qty<=0) return;
             if(qty>availableStock){alert('Stock insuficiente'); return;}
 
@@ -970,7 +970,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
             const existing = cart.find(item=>item.name===name);
             if(existing){
-                if(existing.qty+qty>availableStock){alert('Stock insuficiente'); return;}
+                if(existing.qty+qty>availableStock){alert('🚨Stock insuficiente🚨'); return;}
                 existing.qty+=qty;
             }else{
                 cart.push({name,price,qty,prodElem:prod});
@@ -1014,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
         doc.text(`Total: $${total} MXN`,10,y+10);
         doc.save('pedido.pdf');
-        alert('PDF generado y descargado');
+        alert('📢PDF generado y descargado, envianos tu tiket de pedido a nuestro whatsapp 🌟5577520204🌟');
     });
 
     updateCartUI();
