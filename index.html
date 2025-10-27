@@ -1,0 +1,1279 @@
+<!DOCTYPE html>  <html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>TOY SHOP</title>  
+    <style>  
+        /* Reset básico */  
+        * { box-sizing: border-box; margin: 0; padding: 0; }  body {  
+        font-family: 'Arial', sans-serif;  
+        background-color: #0a0a0f;  
+        color: #fff;  
+        padding: 20px;  
+    }  
+
+    h1 {  
+        text-align: center;  
+        color: #9b59b6; /* estilo neón HBO */  
+        margin-bottom: 20px;  
+    }  
+
+    .gallery {  
+        display: grid;  
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));  
+        gap: 20px;  
+    }  
+
+    .product {  
+        background-color: #1c1c28;  
+        border: 2px solid #9b59b6;  
+        border-radius: 10px;  
+        padding: 10px;  
+        text-align: center;  
+        transition: transform 0.2s;  
+    }  
+
+    .product:hover {  
+        transform: scale(1.05);  
+    }  
+
+    .product img {  
+        width: 100%;  
+        border-radius: 8px;  
+        cursor: pointer;  
+    }  
+
+    .name {  
+        font-weight: bold;  
+        margin-top: 8px;  
+        color: #fff;  
+    }  
+
+    .brand {  
+        font-style: italic;  
+        color: #8e44ad;  
+    }  
+
+    .price {  
+        color: #e74c3c;  
+        font-weight: bold;  
+    }  
+
+    .stock {  
+        color: #f1c40f;  
+    }  
+
+    /* Modal / Lightbox */  
+    .modal {  
+        display: none;  
+        position: fixed;  
+        z-index: 999;  
+        padding-top: 60px;  
+        left: 0;  
+        top: 0;  
+        width: 100%;  
+        height: 100%;  
+        overflow: auto;  
+        background-color: rgba(10,10,15,0.95);  
+    }  
+
+    .modal-content {  
+        margin: auto;  
+        display: block;  
+        max-width: 90%;  
+        border-radius: 10px;  
+    }  
+
+    .modal-description {  
+        text-align: center;  
+        margin-top: 10px;  
+        color: #fff;  
+    }  
+
+    .close {  
+        position: absolute;  
+        top: 20px;  
+        left: 35px;  
+        color: #fff;  
+        font-size: 40px;  
+        font-weight: bold;  
+        cursor: pointer;  
+    }  
+
+    @media (max-width: 600px) {  
+        .gallery {  
+            grid-template-columns: repeat(2, 1fr);  
+        }  
+    }  
+</style>
+
+
+
+
+
+
+
+
+
+</head>  
+<body>  
+
+
+
+
+<!-- Título con marco morado neón responsivo estilo motel -->
+<style>
+  .title-container {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px; /* espacio extra para no encimarse */
+  }
+
+  .neon-frame {
+    display: inline-block;
+    padding: 10px 30px;
+    border: 3px solid #b06cff;
+    border-radius: 20px;
+    position: relative;
+    animation: flicker 2s infinite;
+    box-sizing: border-box;
+    max-width: 90vw; /* evita que se salga de pantalla */
+  }
+
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      box-shadow: 0 0 8px #b06cff, 0 0 16px #b06cff, 0 0 24px #b06cff, 0 0 48px #b06cff;
+      border-color: #b06cff;
+    }
+    20%, 24%, 55% {
+      box-shadow: none;
+      border-color: #552a8b;
+    }
+  }
+
+  .neon-text {
+    font-size: clamp(1.8em, 5vw, 3em); /* se adapta a tamaño de pantalla */
+    color: #b06cff;
+    text-shadow: 0 0 10px #b06cff, 0 0 20px #b06cff, 0 0 40px #b06cff;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .title-container {
+      margin-top: 25px;
+      margin-bottom: 60px;
+    }
+    .neon-frame {
+      padding: 8px 20px;
+      border-width: 2px;
+    }
+  }
+</style>
+
+<div class="title-container">
+  <div class="neon-frame">
+    <span class="neon-text">Toy Shop</span>
+  </div>
+</div>
+
+
+
+
+
+
+        <div class="product">
+    <img src="img/Nissan_Skyline.jpg" alt="img/Nissan_Skyline" onclick="openModal(this)">
+    <div class="name">img/Nissan_Skyline</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+    <div class="product">
+    <img src="img/Cadillac_Project_GTP_Rojo.jpg" alt="img/Cadillac_Project_GTP_Rojo" onclick="openModal(this)">
+    <div class="name">img/Cadillac_Project_GTP_Rojo</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+    <div class="product">
+    <img src="img/2020_Koennigsegg_Jesko.jpg" alt="img/2020_Koennigsegg_Jesko" onclick="openModal(this)">
+    <div class="name">img/2020_Koennigsegg_Jesko</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+    <div class="product">
+    <img src="img/PeugeotHypercar.jpg" alt="Peugeot:Hypercar" onclick="openModal(this)">
+    <div class="name">img/Peugeot_Hypercar</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+    <div class="product">
+    <img src="img/Jaguar_XJC_COUPE.jpg" alt="Jaguar_XJC_COUPE" onclick="openModal(this)">
+    <div class="name">img/Jaguar_XJC_COUPE</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$120 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+    <div class="product">
+    <img src="img/Gordon_Murray.jpg" alt="Gordon_Murray" onclick="openModal(this)">
+    <div class="name">img/Gordon_Murray</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+              <div class="product">
+    <img src="img/Cone_Shake.jpg" alt="Cone_Shake" onclick="openModal(this)">
+    <div class="name">img/Cone_Shake</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+          <div class="product">
+    <img src="img/Pagani_Utopia.jpg" alt="Pagani_Utopia" onclick="openModal(this)">
+    <div class="name">img/Pagani_Utopia</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+      <div class="product">
+    <img src="img/Mazda_RX7.jpg" alt="Mazda_RX7" onclick="openModal(this)">
+    <div class="name">img/Mazda_RX7</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+    <div class="product">
+    <img src="img/73_Honda_Civic.jpg" alt="73_Honda_Civic" onclick="openModal(this)">
+    <div class="name">img/73_Honda_Civic</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+<div class="product">
+    <img src="img/99_Ford_f-150.jpg" alt="99_Ford_f-150" onclick="openModal(this)">
+    <div class="name">img/99_Ford_f-150</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+<div class="product">
+    <img src="img/Batman_Arkman.jpg" alt="Batman_Arkman" onclick="openModal(this)">
+    <div class="name">img/Batman_Arkman</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+<div class="product">
+    <img src="img/Porsche_Turbo_911.jpg" alt="Porsche_Turbo_911" onclick="openModal(this)">
+    <div class="name">img/Porsche_Turbo_911</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="img/BMW_2002.jpg" alt="BMW_2002" onclick="openModal(this)">
+    <div class="name">img/BMW_2002</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$120 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="img/91_Mazda_Miata_MX5.jpg" alt="91_Mazda_Miata_MX5" onclick="openModal(this)">
+    <div class="name">img/91_Mazda_Miata_MX5</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="img/Custom_53_Chevy.jpg" alt="Custom_53_Chevy" onclick="openModal(this)">
+    <div class="name">img/91_Mazda_Miata_MX5</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="img/Mazda_787B.jpg" alt="Mazda_787B" onclick="openModal(this)">
+    <div class="name">Mazda 787B</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="Kei_Swap.jpg" alt="Kei_Swap" onclick="openModal(this)">
+    <div class="name">Kei_Swap</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+div class="product">
+    <img src="Silverado_EV_RST_Naranja.jpg" alt="Silverado_EV_RST_Naranja" onclick="openModal(this)">
+    <div class="name">Silverado_EV_RST_Naranja</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+
+
+
+
+
+
+<div class="gallery">
+    <!-- EJEMPLO DE PRODUCTO -->
+    <div class="product">
+        <img src="img/camaro.jpg" alt="Hot Wheel 1" onclick="openModal(this)">
+        <div class="name">16 Chevy Camaro convertible</div>
+        <div class="brand">MATCHBOX</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+    <div class="product">
+        <img src="img/raptor.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">17 Ford f150 Raptor</div>
+        <div class="brand">Hot Wheels</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+
+
+
+<div class="product">
+        <img src="img/mazda_rx3.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name"> Mazda rx-3</div>
+        <div class="brand">Hot Wheels</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="product">
+        <img src="img/1980 amc eagle.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">1980 amc eagle</div>
+        <div class="brand">MATCHBOX</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    <div class="product">
+        <img src="img/bronco2021.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">2021 Ford bronco</div>
+        <div class="brand">MAISTO</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+      <div class="product">
+        <img src="img/2022 Renault Megane.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">2022 Ford Bronco Sport</div>
+        <div class="brand">MATCHBOX</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+      <div class="product">
+        <img src="img/chevy_55.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">55 Chevy</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+          <div class="product">
+        <img src="img/62 Corvette gasset.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">62 Corvette gasset</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+          <div class="product">
+        <img src="img/66 Buick Rivera.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">66 Buick Rivera</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$85 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+          <div class="product">
+        <img src="img/69 Dodge Coronel superbee.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">69 Dodge Coronel superbee</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+     
+          <div class="product">
+        <img src="img/70 Chevy Camaro RS.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">71 Dodge Challenger</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+
+      
+          <div class="product">
+        <img src="img/dodge.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">71 Dodge Challenger</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+   
+          <div class="product">
+        <img src="img/71 Lamborghini Miura sv.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">71 Lamborghini Miura sv</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+   
+          <div class="product">
+        <img src="img/75 Chevy blazer custom.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">75 Chevy blazer custom</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$85 MXN</div>
+        <div class="stock">Stock: 2</div>
+    </div>
+
+
+
+    
+          <div class="product">
+        <img src="img/85 Hyundai city turbo 2.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">85 Hyundai city turbo 2</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$110 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+          <div class="product">
+        <img src="img/92 Ford mustang.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">92 Ford mustang</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+      
+          <div class="product">
+        <img src="img/fire.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Ain't fire</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+      
+          <div class="product">
+        <img src="img/Alfa Romeo giulia t1 super.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Alfa Romeo giulia t1 super</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$80 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+      
+          <div class="product">
+        <img src="img/rojoArrow dinamic.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Arrow dinamic</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+      
+          <div class="product">
+        <img src="img/naranjaArrow dinamic.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Arrow dinamic naranja</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+        
+          <div class="product">
+        <img src="img/Aston Martin db4 GT high speed edition.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Aston Martin db4 GT high speed edition</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+          <div class="product">
+        <img src="img/Audi TT roadster.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Audi TT roadster</div>
+        <div class="brand">MAISTO</div>
+        <div class="price">$60 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+    
+          <div class="product">
+        <img src="img/Batman y Robin batimovil.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Batman y Robin batimovil</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+
+          <div class="product">
+        <img src="img/Chevy blazer 4x4.png" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Chevy blazer 4x4</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$100 MXN</div>
+        <div class="stock">Stock: 0</div>
+    </div>
+
+
+    
+
+          <div class="product">
+        <img src="img/coast2.png" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">COAST 2 COAST</div>
+        <div class="brand">MATCHBOX</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 3</div>
+    </div>
+     
+
+ 
+
+          <div class="product">
+        <img src="img/Dessert drifter.png" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Dessert drifter</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$70 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+     
+
+    
+          <div class="product">
+        <img src="img/Dodge power wagon 70.png" alt="Hot Wheel 2" onclick="openModal(this)">
+        <div class="name">Dodge power wagon 70</div>
+        <div class="brand">HOTWEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Stock: 1</div>
+    </div>
+
+
+
+
+<div class="product">
+    <img src="img/Dodge_van.jpg" alt="Dodge van" onclick="openModal(this)">
+    <div class="name">Dodge van</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$70 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Donut_drifter.jpg" alt="Donut drifter" onclick="openModal(this)">
+    <div class="name">Donut drifter</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$60 MXN</div>
+    <div class="stock">Existencias: 0</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Dune_It_Up.jpg" alt="Dune It Up" onclick="openModal(this)">
+    <div class="name">Dune It Up</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$70 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Fiat_500_e.jpg" alt="Fiat 500 e" onclick="openModal(this)">
+    <div class="name">Fiat 500 e</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Flippin_fast.jpg" alt="Flippin fast" onclick="openModal(this)">
+    <div class="name">Flippin fast</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$60 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Hako_type_d.jpg" alt="Hako type d" onclick="openModal(this)">
+    <div class="name">Hako type d</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Heavy_hitcher_grua_verde.jpg" alt="Heavy hitcher grúa verde" onclick="openModal(this)">
+    <div class="name">Heavy hitcher grúa verde</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$85 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Hirohata_merc.jpg" alt="Hirohata merc" onclick="openModal(this)">
+    <div class="name">Hirohata merc</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$150 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Honda_motocompo_moto_roja.jpg" alt="Honda motocompo moto roja" onclick="openModal(this)">
+    <div class="name">Honda motocompo moto roja</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 3</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Hw_50_concept.jpg" alt="Hw 50 concept" onclick="openModal(this)">
+    <div class="name">Hw 50 concept</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 3</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/International_terrastar.jpg" alt="International terrastar" onclick="openModal(this)">
+    <div class="name">International terrastar</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$65 MXN</div>
+    <div class="stock">Existencias: 0</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Jaguar_mk1.jpg" alt="Jaguar mk1" onclick="openModal(this)">
+    <div class="name">Jaguar mk1</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Kei_swamp.jpg" alt="Kei swamp" onclick="openModal(this)">
+    <div class="name">Kei swamp</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$50 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/King_kuda.jpg" alt="King kuda" onclick="openModal(this)">
+    <div class="name">King kuda</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Lance_Robert_defender_90.jpg" alt="Lance Robert defender 90" onclick="openModal(this)">
+    <div class="name">Lance Robert defender 90</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Maserati_shamal.jpg" alt="Maserati shamal" onclick="openModal(this)">
+    <div class="name">Maserati shamal</div>
+    <div class="brand">HOTWEELS</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">HOTWEELS</div>
+</div>
+
+<div class="product">
+    <img src="img/dream.jpg" alt="Mattel dream Mobile" onclick="openModal(this)">
+    <div class="name">Mattel dream Mobile</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 0</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+
+<div class="product">
+    <img src="img/Mazda_mx-5_miata.jpg" alt="Mazda mx-5 miata" onclick="openModal(this)">
+    <div class="name">Mazda mx-5 miata</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Mazda_repu.jpg" alt="Mazda repu" onclick="openModal(this)">
+    <div class="name">Mazda repu</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Mercedes_Benz_500_e.jpg" alt="Mercedes Benz 500 e" onclick="openModal(this)">
+    <div class="name">Mercedes Benz 500 e</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+<div class="product">
+    <img src="img/Mini_country_Man.jpg" alt="Mini country Man" onclick="openModal(this)">
+    <div class="name">Mini country Man</div>
+    <div class="brand">Maisto</div>
+    <div class="price">$60 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Maisto</div>
+</div>
+
+<div class="product">
+    <img src="img/Morgan_Plus_Four.jpg" alt="Morgan Plus Four" onclick="openModal(this)">
+    <div class="name">Morgan Plus Four</div>
+    <div class="brand">MATCHBOX</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">MATCHBOX</div>
+</div>
+
+
+<div class="product">
+    <img src="img/Pagani_zonda_r.jpg" alt="Pagani zonda r" onclick="openModal(this)">
+    <div class="name">Pagani zonda r</div>
+    <div class="brand">HOTWEELS</div>
+    <div class="price">$95 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">HOTWEELS</div>
+</div>
+
+<div class="product">
+    <img src="img/Pedal_driver.jpg" alt="Pedal driver" onclick="openModal(this)">
+    <div class="name">Pedal driver</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 0</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Pixel_shaker.jpg" alt="Pixel shaker" onclick="openModal(this)">
+    <div class="name">Pixel shaker</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$75 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Polaris_rzr.jpg" alt="Polaris rzr" onclick="openModal(this)">
+    <div class="name">Polaris rzr</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$70 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Popper_chopper_helicoptero.jpg" alt="Popper chopper helicóptero" onclick="openModal(this)">
+    <div class="name">Popper chopper helicóptero</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Porsche_904_carrera_gts.jpg" alt="Porsche 904 carrera gts" onclick="openModal(this)">
+    <div class="name">Porsche 904 carrera gts</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$120 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Porsche_911_carrera_996.jpg" alt="Porsche 911 carrera 996" onclick="openModal(this)">
+    <div class="name">Porsche 911 carrera 996</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$60 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Porsche_911_carrera_clip.jpg" alt="Porsche 911 carrera clip" onclick="openModal(this)">
+    <div class="name">Porsche 911 carrera clip</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Porsche_911_targa_4.jpg" alt="Porsche 911 targa 4" onclick="openModal(this)">
+    <div class="name">Porsche 911 targa 4</div>
+    <div class="brand">MATCHBOX</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">MATCHBOX</div>
+</div>
+
+
+<div class="product">
+    <img src="img/Radical_sr3_xxr_negro.jpg" alt="Radical sr3 xxr negro" onclick="openModal(this)">
+    <div class="name">Radical sr3 xxr negro</div>
+    <div class="brand">MATCHBOX</div>
+    <div class="price">$70 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">MATCHBOX</div>
+</div>
+
+<div class="product">
+    <img src="img/Radical_sr3_xxr_rojo.jpg" alt="Radical sr3 xxr rojo" onclick="openModal(this)">
+    <div class="name">Radical sr3 xxr rojo</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Road_roller_aplanadora.jpg" alt="Road roller aplanadora" onclick="openModal(this)">
+    <div class="name">Road roller aplanadora</div>
+    <div class="brand">MATCHBOX</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 2</div>
+    <div class="category">MATCHBOX</div>
+</div>
+
+<div class="product">
+    <img src="img/Silverado_ev_rst.jpg" alt="Silverado ev rst" onclick="openModal(this)">
+    <div class="name">Silverado ev rst</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Small_block.jpg" alt="Small block" onclick="openModal(this)">
+    <div class="name">Small block</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$65 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Street_wiener.jpg" alt="Street wiener" onclick="openModal(this)">
+    <div class="name">Street wiener</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Subaru_brz.jpg" alt="Subaru brz" onclick="openModal(this)">
+    <div class="name">Subaru brz</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Supercharged.jpg" alt="supercharged" onclick="openModal(this)">
+    <div class="name">supercharged</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Tanknator.jpg" alt="Tanknator" onclick="openModal(this)">
+    <div class="name">Tanknator</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Tesla_cyberquad.jpg" alt="Tesla cyberquad" onclick="openModal(this)">
+    <div class="name">Tesla cyberquad</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$100 MXN</div>
+    <div class="stock">Existencias: 0</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Total_disposal_caminon_de_basura.jpg" alt="Total disposal camión de basura" onclick="openModal(this)">
+    <div class="name">Total disposal camión de basura</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$90 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Track_dwagon.jpg" alt="Track dwagon" onclick="openModal(this)">
+    <div class="name">Track dwagon</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+<div class="product">
+    <img src="img/Vw_t3_custom.jpg" alt="Vw t3 custom" onclick="openModal(this)">
+    <div class="name">Vw t3 custom</div>
+    <div class="brand">Hot Wheels</div>
+    <div class="price">$80 MXN</div>
+    <div class="stock">Existencias: 1</div>
+    <div class="category">Hot Wheels</div>
+</div>
+
+
+     
+   
+
+
+
+    <!-- AQUÍ PEGAS TODO TU INVENTARIO -->
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+    <div class="modal-description" id="modalDesc"></div>
+</div>
+
+<script>
+    function openModal(img) {
+        document.getElementById("myModal").style.display = "block";
+        document.getElementById("modalImg").src = img.src;
+
+        // Obtener descripción debajo de la imagen
+        let productDiv = img.parentElement;
+        let name = productDiv.querySelector('.name').innerText;
+        let brand = productDiv.querySelector('.brand').innerText;
+        let price = productDiv.querySelector('.price').innerText;
+        let stock = productDiv.querySelector('.stock').innerText;
+
+        document.getElementById("modalDesc").innerHTML =
+            `<div>${name}</div>
+             <div>${brand}</div>
+             <div>${price}</div>
+             <div>${stock}</div>`;
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    // Cerrar modal al hacer clic fuera de la imagen
+    window.onclick = function(event) {
+        let modal = document.getElementById("myModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const productos = document.querySelectorAll(".product");
+
+    function actualizarVisibilidad() {
+        productos.forEach(producto => {
+            const stockDiv = producto.querySelector(".stock");
+            if (stockDiv) {
+                const texto = stockDiv.textContent.trim();
+                // Extrae el número aunque diga "Existencia:" o "Existencias:"
+                const numero = parseInt(texto.replace(/\D/g, ""));
+                
+                // Oculta los productos con existencia 0, muestra los demás
+                if (numero === 0) {
+                    producto.style.display = "none";
+                } else {
+                    producto.style.display = "block";
+                }
+            }
+        });
+    }
+
+    // Ejecutar al cargar la página
+    actualizarVisibilidad();
+
+    // Detectar cambios en el texto del stock (por si lo actualizas luego)
+    const observer = new MutationObserver(actualizarVisibilidad);
+    productos.forEach(producto => {
+        const stockDiv = producto.querySelector(".stock");
+        if (stockDiv) observer.observe(stockDiv, { childList: true, subtree: true, characterData: true });
+    });
+});
+</script>
+
+
+<!-- Carrito Icono -->
+<img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; right:20px; width:60px; height:auto; cursor:pointer; z-index:1000;">
+<span id="cart-count" style="position:fixed; top:10px; right:65px; color:white; background:red; border-radius:50%; padding:3px 7px; display:none; z-index:1001;">0</span>
+
+<!-- Ventana lateral del carrito -->
+<div id="cart-sidebar" style="position:fixed; top:0; right:-400px; width:90%; max-width:400px; height:100%; background:#222; color:white; padding:20px; transition:0.3s; overflow-y:auto; z-index:9999;">
+  <h2>Mi Carrito</h2>
+  <div id="cart-items"></div>
+  <p>Total: $<span id="cart-total">0</span> MXN</p>
+  <button id="checkout-btn" style="background:green; color:white; padding:10px; border:none; cursor:pointer; width:100%; margin-bottom:10px;">Pagar ahora</button>
+  <button id="cancel-btn" style="background:red; color:white; padding:10px; border:none; width:100%; cursor:pointer;">Cancelar pedido</button>
+  <button id="close-cart" style="background:#555; color:white; padding:5px; border:none; cursor:pointer; width:100%; margin-top:10px;">Cerrar</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const { jsPDF } = window.jspdf;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const products = document.querySelectorAll('.product');
+    const cartIcon = document.getElementById('cart-icon');
+    const cartCount = document.getElementById('cart-count');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const closeCartBtn = document.getElementById('close-cart');
+
+    function updateCartUI(){
+        const totalQty = cart.reduce((a,b)=>a+b.qty,0);
+        cartCount.textContent = totalQty;
+        cartCount.style.display = totalQty>0?'inline-block':'none';
+
+        cartItems.innerHTML = '';
+        cart.forEach((item,index)=>{
+            const div = document.createElement('div');
+            div.style.display='flex';
+            div.style.justifyContent='space-between';
+            div.style.marginBottom='5px';
+            div.innerHTML = `${item.name} x ${item.qty} <span style="cursor:pointer;color:red;" data-index="${index}">X</span>`;
+            cartItems.appendChild(div);
+
+            div.querySelector('span').addEventListener('click',(e)=>{
+                const idx=parseInt(e.target.dataset.index);
+                const prodStockElem = cart[idx].prodElem.querySelector('.stock');
+                let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,'')) || 0;
+                prodStockElem.textContent = `Existencias: ${currentStock + cart[idx].qty}`;
+                cart.splice(idx,1);
+                saveCart();
+                updateCartUI();
+            });
+        });
+
+        const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
+        cartTotal.textContent = total;
+    }
+
+    function saveCart(){
+        localStorage.setItem('cart',JSON.stringify(cart));
+    }
+
+    products.forEach(prod=>{
+        const btn = document.createElement('button');
+        btn.innerHTML = '🛒 Añadir al carrito';
+        btn.style.background='green';
+        btn.style.color='white';
+        btn.style.padding='8px 10px';
+        btn.style.marginTop='5px';
+        btn.style.cursor='pointer';
+        btn.style.width='100%';
+        btn.style.boxSizing='border-box';
+        prod.appendChild(btn);
+
+        btn.addEventListener('click', ()=>{
+            let availableStock = parseInt(prod.querySelector('.stock').textContent.replace(/\D/g,'')) || 0;
+            if(availableStock<=0){alert('😔Stock insuficiente😤'); return;}
+            let qty = parseInt(prompt(`😁¿Cuántas unidades quieres agregar a tu carrito?🤓 (Stock: ${availableStock})`,1));
+            if(isNaN(qty)||qty<=0) return;
+            if(qty>availableStock){alert('😔Stock insuficiente😤'); return;}
+
+            const name = prod.querySelector('.name').textContent;
+            const price = parseFloat(prod.querySelector('.price').textContent.replace(/\D/g,''));
+            const existing = cart.find(item=>item.name===name);
+            if(existing){
+                if(existing.qty+qty>availableStock){alert('🚨Stock insuficiente🚨'); return;}
+                existing.qty+=qty;
+            }else{
+                cart.push({name,price,qty,prodElem:prod});
+            }
+            prod.querySelector('.stock').textContent = `Existencias: ${availableStock-qty}`;
+            saveCart();
+            updateCartUI();
+        });
+    });
+
+    // Abrir y cerrar carrito a la derecha
+    cartIcon.addEventListener('click',()=>{cartSidebar.style.right='0';});
+    closeCartBtn.addEventListener('click',()=>{cartSidebar.style.right='-400px';});
+
+    // Cancelar pedido
+    cancelBtn.addEventListener('click',()=>{
+        cart.forEach(item=>{
+            const prodStockElem = item.prodElem.querySelector('.stock');
+            let currentStock = parseInt(prodStockElem.textContent.replace(/\D/g,'')) || 0;
+            prodStockElem.textContent = `Existencias: ${currentStock + item.qty}`;
+        });
+        cart.length=0;
+        saveCart();
+        updateCartUI();
+    });
+
+    // Generar PDF
+    checkoutBtn.addEventListener('click',()=>{
+        if(cart.length===0){alert('El carrito está vacío'); return;}
+        const doc = new jsPDF();
+        doc.setFontSize(16);
+        doc.text('Pedido Hot Wheels',10,20);
+        doc.setFontSize(12);
+        let y=30;
+        doc.text('Producto       Cantidad       Precio',10,y);
+        y+=10;
+        cart.forEach(item=>{
+            doc.text(`${item.name}          ${item.qty}          $${item.price*item.qty} MXN`,10,y);
+            y+=10;
+        });
+        const total = cart.reduce((a,b)=>a+b.qty*b.price,0);
+        doc.text(`Total: $${total} MXN`,10,y+10);
+        doc.save('pedido.pdf');
+        alert('📢PDF generado y descargado, envianos tu tiket de pedido a nuestro whatsapp para surtirlo 🌟5577520204🌟');
+    });
+
+    updateCartUI();
+});
+</script>
+
+
+.
+
+</body>
+</html>
