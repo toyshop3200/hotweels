@@ -943,6 +943,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hot Wheels Tienda</title>
+<style>
+body {
+    background:#111;
+    color:white;
+    font-family:Arial, sans-serif;
+}
+.product {
+    background:#222;
+    padding:15px;
+    margin:10px;
+    border-radius:10px;
+}
+.stock {
+    margin-top:5px;
+}
+</style>
+</head>
+<body>
 
 <!-- Carrito Icono -->
 <img src="img/carrito.png" id="cart-icon" style="position:fixed; top:20px; right:20px; width:60px; height:auto; cursor:pointer; z-index:1000;">
@@ -958,13 +982,20 @@ document.addEventListener("DOMContentLoaded", function() {
   <button id="close-cart" style="background:#555; color:white; padding:5px; border:none; cursor:pointer; width:100%; margin-top:10px;">Cerrar</button>
 </div>
 
-<!-- Aquí va tu script -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-/* Todo tu script corregido va aquí */
-</script>
+<!-- Lista de productos (ejemplo) -->
+<div class="product">
+    <h3 class="name">Hot Wheels Carro 1</h3>
+    <p class="price">$120</p>
+    <p class="stock">Existencias: 5</p>
+</div>
 
+<div class="product">
+    <h3 class="name">Hot Wheels Carro 2</h3>
+    <p class="price">$150</p>
+    <p class="stock">Existencias: 3</p>
+</div>
 
+<!-- Script jsPDF y carrito -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -1065,11 +1096,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         cart = [];
-        saveCart();
+        localStorage.removeItem('cart');
         updateCartUI();
     });
 
-    // ✅ Generar PDF y vaciar carrito correctamente
+    // Generar PDF y vaciar carrito
     checkoutBtn.addEventListener('click',()=>{
         if(cart.length===0){alert('El carrito está vacío'); return;}
         const doc = new jsPDF();
@@ -1089,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert('📢 PDF generado y descargado.\nEnvíanos tu ticket de pedido a nuestro WhatsApp 🌟5577520204🌟');
 
-        // 🔥 Vaciar carrito después del pago
+        // Vaciar carrito después del pago
         cart = [];
         localStorage.removeItem('cart');
         updateCartUI();
@@ -1098,6 +1129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 });
 </script>
+</body>
+</html>
 
 
 
