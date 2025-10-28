@@ -180,6 +180,113 @@
 
 
 
+<!-- Carrusel Hot Wheels estilo Netflix ajustado -->
+<div class="hotwheels-carousel-container">
+    <button class="carousel-btn left">&#10094;</button>
+    <div class="hotwheels-carousel">
+        <!-- Productos Hot Wheels (pega aquí tus divs de producto) -->
+        <div class="product">
+            <img src="img/Nissan_Skyline.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+            <div class="name">Nissan Skyline</div>
+            <div class="brand">Hot Wheels</div>
+            <div class="price">$150 MXN</div>
+        </div>
+        <div class="product">
+            <img src="img/Cadillac_Project_GTP_Rojo.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+            <div class="name">Cadillac Project GTP Rojo</div>
+            <div class="brand">Hot Wheels</div>
+            <div class="price">$100 MXN</div>
+        </div>
+        <div class="product">
+            <img src="img/2020_Koennigsegg_Jesko.jpg" alt="2020_Koennigsegg_Jesko" onclick="openModal(this)">
+            <div class="name">2020 Koennigsegg Jesko</div>
+            <div class="brand">Hot Wheels</div>
+            <div class="price">$150 MXN</div>
+        </div>
+        <!-- Sigue agregando todos los demás productos aquí -->
+    </div>
+    <button class="carousel-btn right">&#10095;</button>
+</div>
+
+<style>
+.hotwheels-carousel-container {
+    position: relative;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.hotwheels-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    padding: 10px;
+}
+
+.hotwheels-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.product {
+    flex: 0 0 auto; /* Evita que se estiren */
+    width: 140px;   /* Tamaño uniforme estilo Netflix */
+    text-align: center;
+    background: #111;
+    color: #fff;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.product img {
+    width: 100%;
+    height: auto;   /* Mantiene proporción de imagen */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.carousel-btn.left {
+    left: 5px;
+}
+
+.carousel-btn.right {
+    right: 5px;
+}
+</style>
+
+<script>
+const leftBtn = document.querySelector('.carousel-btn.left');
+const rightBtn = document.querySelector('.carousel-btn.right');
+const carousel = document.querySelector('.hotwheels-carousel');
+
+leftBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -200, behavior: 'smooth' });
+});
+rightBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: 200, behavior: 'smooth' });
+});
+</script>
+
+
+
+
+
+
+
+
 
 
 <div class="gallery">
