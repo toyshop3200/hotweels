@@ -1316,6 +1316,106 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
 });
 </script>
+
+
+
+<!-- Carrusel estilo Netflix para Hot Wheels -->
+<div class="hotwheels-carousel-container">
+    <button class="carousel-btn left">&#10094;</button>
+    <div class="hotwheels-carousel">
+        <!-- Copia y pega tus productos aquí -->
+        <div class="product">
+            <img src="img/Nissan_Skyline.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+            <div class="name">Nissan Skyline</div>
+            <div class="brand">Hot Wheels</div>
+            <div class="price">$150 MXN</div>
+            <div class="stock">Existencias: 1</div>
+            <div class="category">Hot Wheels</div>
+        </div>
+        <div class="product">
+            <img src="img/Cadillac_Project_GTP_Rojo.jpg" alt="Hot Wheel 2" onclick="openModal(this)">
+            <div class="name">Cadillac Project GTP Rojo</div>
+            <div class="brand">Hot Wheels</div>
+            <div class="price">$100 MXN</div>
+            <div class="stock">Existencias: 1</div>
+            <div class="category">Hot Wheels</div>
+        </div>
+        <!-- Sigue pegando todos los demás productos nuevos igual que en tu lista -->
+    </div>
+    <button class="carousel-btn right">&#10095;</button>
+</div>
+
+<!-- Estilos del carrusel -->
+<style>
+.hotwheels-carousel-container {
+    position: relative;
+    margin: 20px 0;
+    overflow: hidden;
+}
+.hotwheels-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    padding: 10px 0;
+}
+.hotwheels-carousel::-webkit-scrollbar {
+    display: none; /* Oculta la barra de scroll */
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.carousel-btn.left {
+    left: 5px;
+}
+.carousel-btn.right {
+    right: 5px;
+}
+.product {
+    min-width: 200px;
+    flex: 0 0 auto;
+    text-align: center;
+    background: #111;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+}
+.product img {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+</style>
+
+<!-- Script del carrusel -->
+<script>
+const leftBtn = document.querySelector('.carousel-btn.left');
+const rightBtn = document.querySelector('.carousel-btn.right');
+const carousel = document.querySelector('.hotwheels-carousel');
+
+leftBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -220, behavior: 'smooth' });
+});
+rightBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: 220, behavior: 'smooth' });
+});
+</script>
+
+
+
+
+
+
 </body>
 </html>
 
