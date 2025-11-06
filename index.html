@@ -1240,96 +1240,63 @@ prev.addEventListener('click', () => {
 
 
 
-    <!-- AQUÍ PEGAS TODO TU INVENTARIO -->
-</div>
+   <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const productos = document.querySelectorAll(".product");
 
-<!-- Modal -->
-<div id="myModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modalImg">
-    <div class="modal-description" id="modalDesc"></div>
-</div>
+    function actualizarAgotado() {
+        productos.forEach(producto => {
+            const stockDiv = producto.querySelector(".stock");
+            if (stockDiv) {
+                // Extraer número de existencia del texto
+                const numero = parseInt(stockDiv.textContent.replace(/\D/g, ""), 10);
 
-<script>
-    function openModal(img) {
-        document.getElementById("myModal").style.display = "block";
-        document.getElementById("modalImg").src = img.src;
+                // Primero, quitar cualquier mensaje agotado previo
+                const prevAgotado = producto.querySelector('.agotado-overlay');
+                if (prevAgotado) prevAgotado.remove();
 
-        // Obtener descripción debajo de la imagen
-        let productDiv = img.parentElement;
-        let name = productDiv.querySelector('.name').innerText;
-        let brand = productDiv.querySelector('.brand').innerText;
-        let price = productDiv.querySelector('.price').innerText;
-        let stock = productDiv.querySelector('.stock').innerText;
+                // Si stock 0, agregar overlay de AGOTADO
+                if (numero === 0) {
+                    const agotado = document.createElement('div');
+                    agotado.textContent = 'AGOTADO';
+                    agotado.classList.add('agotado-overlay'); // para control futuro
 
-        document.getElementById("modalDesc").innerHTML =
-            `<div>${name}</div>
-             <div>${brand}</div>
-             <div>${price}</div>
-             <div>${stock}</div>`;
+                    // Estilos visuales
+                    agotado.style.color = 'white';
+                    agotado.style.backgroundColor = 'rgba(255,0,0,0.8)';
+                    agotado.style.fontWeight = 'bold';
+                    agotado.style.fontSize = '1.5em';
+                    agotado.style.textAlign = 'center';
+                    agotado.style.position = 'absolute';
+                    agotado.style.top = '0';
+                    agotado.style.left = '0';
+                    agotado.style.width = '100%';
+                    agotado.style.height = '100%';
+                    agotado.style.display = 'flex';
+                    agotado.style.alignItems = 'center';
+                    agotado.style.justifyContent = 'center';
+                    agotado.style.borderRadius = '5px';
+                    agotado.style.pointerEvents = 'none';
+
+                    // Contenedor relativo
+                    producto.style.position = 'relative';
+
+                    // Agregar overlay sobre la imagen
+                    producto.appendChild(agotado);
+                }
+            }
+        });
     }
 
-    function closeModal() {
-        document.getElementById("myModal").style.display = "none";
-    }
+    // Ejecutar al cargar la página
+    actualizarAgotado();
 
-    // Cerrar modal al hacer clic fuera de la imagen
-    window.onclick = function(event) {
-        let modal = document.getElementById("myModal");
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-<!-- Coloca este script al final de tu HTML, antes de </body> -->
-<script>
-// ============================================================
-// Script para mostrar "AGOTADO" en productos con stock 0
-// ============================================================
-
-// Selecciona todos los productos de la página
-// Asegúrate de que cada producto tenga la clase "producto"
-const productos = document.querySelectorAll('.producto');
-
-productos.forEach(producto => {
-    // Obtener la existencia desde el atributo data-stock
-    // Asegúrate de que cada producto tenga data-stock="0" o número mayor
-    const stock = parseInt(producto.getAttribute('data-stock'), 10);
-    
-    // Si el stock es 0 o menor
-    if (stock <= 0) {
-        // Crear el div que mostrará "AGOTADO"
-        const agotado = document.createElement('div');
-        agotado.textContent = 'AGOTADO';
-        
-        // =====================
-        // Estilos visuales
-        // =====================
-        agotado.style.color = 'white'; // texto blanco
-        agotado.style.backgroundColor = 'rgba(255, 0, 0, 0.8)'; // rojo semitransparente
-        agotado.style.fontWeight = 'bold';
-        agotado.style.fontSize = '1.5em';
-        agotado.style.textAlign = 'center';
-        agotado.style.position = 'absolute'; // sobre la imagen
-        agotado.style.top = '0';
-        agotado.style.left = '0';
-        agotado.style.width = '100%';
-        agotado.style.height = '100%';
-        agotado.style.display = 'flex';
-        agotado.style.alignItems = 'center';
-        agotado.style.justifyContent = 'center';
-        agotado.style.borderRadius = '5px'; // opcional, bordes redondeados
-        agotado.style.pointerEvents = 'none'; // para que no bloquee clicks
-        
-        // =====================
-        // Asegurarse que el contenedor sea relativo
-        // =====================
-        producto.style.position = 'relative';
-        
-        // Agregar el div "AGOTADO" al producto
-        producto.appendChild(agotado);
-    }
+    // Observador para cambios en el stock dinámico
+    const observer = new MutationObserver(actualizarAgotado);
+    productos.forEach(producto => {
+        const stockDiv = producto.querySelector(".stock");
+        if (stockDiv) observer.observe(stockDiv, { childList: true, subtree: true, characterData: true });
+    });
 });
 </script>
 
