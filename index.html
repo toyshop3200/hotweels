@@ -1546,7 +1546,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+<script>
+function setupCarousel(itemsId, prevId, nextId) {
+    const carousel = document.getElementById(itemsId);
+    let scrollAmount = 0;
 
+    document.getElementById(prevId).addEventListener("click", () => {
+        carousel.scrollBy({ left: -200, behavior: "smooth" });
+    });
+
+    document.getElementById(nextId).addEventListener("click", () => {
+        carousel.scrollBy({ left: 200, behavior: "smooth" });
+    });
+}
+
+setupCarousel("carouselDestacadoItems", "prevDestacado", "nextDestacado");
+setupCarousel("carouselNuevoItems", "prevNuevo", "nextNuevo");
+</script>
 
 
 
