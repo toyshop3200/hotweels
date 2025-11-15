@@ -181,11 +181,12 @@
 
 
 
-<!-- Carrusel completo LO DESTACADO -->
-<div class="carousel-container">
+<!-- Carrusel LO DESTACADO -->
+<div class="carousel-container" id="carouselDestacado">
     <h2 class="carousel-title">LO DESTACADO</h2>
-    <div class="carousel">
-         <div class="carousel-item">
+
+    <div class="carousel" id="carouselDestacadoItems">
+        <div class="carousel-item">
             <div class="product">
                 <img src="img/ford_ram_1500.jpg" alt="Nissan Skyline" onclick="openModal(this)">
                 <div class="name">Ford ram 1500</div>
@@ -223,8 +224,8 @@
 
     </div>
 
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
+    <button class="prev" id="prevDestacado">&#10094;</button>
+    <button class="next" id="nextDestacado">&#10095;</button>
 </div>
 
 
@@ -237,11 +238,12 @@
 
 
 
-<!-- Carrusel completo LO DESTACADO -->
-<div class="carousel-container">
+<!-- Carrusel LO NUEVO -->
+<div class="carousel-container" id="carouselNuevo">
     <h2 class="carousel-title">LO NUEVO</h2>
-    <div class="carousel">
-         <div class="carousel-item">
+
+    <div class="carousel" id="carouselNuevoItems">
+        <div class="carousel-item">
             <div class="product">
                 <img src="img/ford_mustang_19.jpg" alt="Nissan Skyline" onclick="openModal(this)">
                 <div class="name">19 Ford mustang coupe</div>
@@ -533,8 +535,8 @@
 
       </div>
 
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
+   <button class="prev" id="prevNuevo">&#10094;</button>
+    <button class="next" id="nextNuevo">&#10095;</button>
 </div>
 
 <style>
