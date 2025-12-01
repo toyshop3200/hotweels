@@ -1665,6 +1665,7 @@ setupCarousel("carouselNuevoItems", "prevNuevo", "nextNuevo");
 </div>
 
 <style>
+/* Fondo del modal */
 .modal {
     display: none;
     position: fixed;
@@ -1677,6 +1678,7 @@ setupCarousel("carouselNuevoItems", "prevNuevo", "nextNuevo");
     background-color: rgba(0,0,0,0.8);
 }
 
+/* Imagen grande dentro del modal */
 .modal-content {
     margin: auto;
     display: block;
@@ -1685,18 +1687,27 @@ setupCarousel("carouselNuevoItems", "prevNuevo", "nextNuevo");
     border-radius: 10px;
 }
 
+/* Botón de cierre (X roja estilo neón) */
 .close {
     position: fixed;
     top: 25px;
     left: 25px;
     font-size: 40px;
-    color: white;
+    color: red;
     cursor: pointer;
     z-index: 10000;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255,0,0,0.8);
+}
+
+.close:hover {
+    color: #ff5555;
+    text-shadow: 0 0 12px rgba(255,0,0,1);
 }
 </style>
 
 <script>
+/* Abrir modal */
 function openModal(img) {
     const modal = document.getElementById("modal");
     const modalImg = document.getElementById("modalImg");
@@ -1704,9 +1715,10 @@ function openModal(img) {
     modalImg.src = img.src;
 }
 
+/* Cerrar modal */
 function closeModal(event) {
-    // Cierra si se da clic en el fondo oscuro o en la X
-    if (event.target.id === "modal" || event.target.classList.contains("close")) {
+    if (event.target.id === "modal" || 
+        event.target.classList.contains("close")) {
         document.getElementById("modal").style.display = "none";
     }
 }
