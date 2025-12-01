@@ -1659,52 +1659,6 @@ setupCarousel("carouselNuevoItems", "prevNuevo", "nextNuevo");
 
 
 
-<!-- ========= PREVISUALIZACIÓN DE PRODUCTO ========= -->
-
-<!-- Modal -->
-<div id="previewModal" style="
-    display:none; position:fixed; z-index:9999; left:0; top:0; 
-    width:100%; height:100%; background:rgba(0,0,0,0.8);
-    padding-top:50px;">
-    
-    <!-- Botón X -->
-    <span id="closePreview" style="
-        position:fixed; left:20px; top:20px; font-size:40px; 
-        color:white; font-weight:bold; cursor:pointer; z-index:10000;
-        user-select:none;">✖</span>
-
-    <!-- Imagen Grande -->
-    <img id="previewImage" style="
-        margin:auto; display:block; max-width:90%; max-height:90%;
-        border-radius:10px;">
-</div>
-
-<script>
-// ABRIR MODAL AL HACER CLICK EN UNA IMAGEN CON LA CLASE "previewable"
-document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("previewable")) {
-        const modal = document.getElementById("previewModal");
-        const modalImg = document.getElementById("previewImage");
-        modal.style.display = "block";
-        modalImg.src = e.target.src;
-    }
-});
-
-// CERRAR CON LA X
-document.getElementById("closePreview").onclick = function() {
-    document.getElementById("previewModal").style.display = "none";
-};
-
-// CERRAR AL HACER CLICK FUERA DE LA IMAGEN
-document.getElementById("previewModal").onclick = function(e) {
-    if (e.target.id === "previewModal") {
-        document.getElementById("previewModal").style.display = "none";
-    }
-};
-</script>
-
-<!-- ========= FIN DEL SCRIPT ========= -->
-
 
 
 
