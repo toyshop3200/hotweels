@@ -1717,36 +1717,37 @@ function closeModal(event) {
 
 
 
-
 <script>
 window.addEventListener('DOMContentLoaded', () => {
-    const tituloDestacado = document.querySelector('.titulo-carrusel:nth-of-type(1)');
-    const carruselDestacado = document.querySelector('.carrusel-destacado');
-    const tituloNuevo = document.querySelector('.titulo-carrusel:nth-of-type(2)');
-    const carruselNuevo = document.querySelector('.carrusel-nuevo');
+    const destacadoContainer = document.getElementById('carouselDestacado');
+    const nuevoContainer = document.getElementById('carouselNuevo');
 
-    function ajustarSecciones() {
-        const ancho = window.innerWidth;
+    if (destacadoContainer && nuevoContainer) {
+        const tituloDestacado = destacadoContainer.querySelector('.carousel-title');
+        const tituloNuevo = nuevoContainer.querySelector('.carousel-title');
 
-        if (tituloDestacado && carruselDestacado && tituloNuevo && carruselNuevo) {
+        function ajustarSecciones() {
+            const ancho = window.innerWidth;
+
             // Márgenes generales
-            tituloDestacado.style.marginBottom = '5px';
-            carruselDestacado.style.marginBottom = '10px';
-            tituloNuevo.style.marginBottom = '3px';
-            carruselNuevo.style.marginTop = '0px';
+            if (tituloDestacado) tituloDestacado.style.marginBottom = '5px';
+            destacadoContainer.style.marginBottom = '10px';
+            if (tituloNuevo) tituloNuevo.style.marginBottom = '3px';
+            nuevoContainer.style.marginTop = '0px';
 
             // Ajustes para pantallas pequeñas
             if (ancho < 768) {
-                tituloDestacado.style.marginBottom = '3px';
-                carruselDestacado.style.marginBottom = '5px';
-                tituloNuevo.style.marginBottom = '2px';
-                carruselNuevo.style.marginTop = '2px';
+                if (tituloDestacado) tituloDestacado.style.marginBottom = '3px';
+                destacadoContainer.style.marginBottom = '5px';
+                if (tituloNuevo) tituloNuevo.style.marginBottom = '2px';
+                nuevoContainer.style.marginTop = '2px';
             }
         }
-    }
 
-    ajustarSecciones();
-    window.addEventListener('resize', ajustarSecciones);
+        // Ejecuta al cargar y al redimensionar
+        ajustarSecciones();
+        window.addEventListener('resize', ajustarSecciones);
+    }
 });
 </script>
 
