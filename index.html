@@ -1718,7 +1718,18 @@ function closeModal(event) {
 
 
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const destacado = document.getElementById("carouselDestacado");
+    const nuevo = document.getElementById("carouselNuevo");
 
+    if (destacado && nuevo) {
+        // Reduce la separación entre secciones
+        destacado.style.marginBottom = "10px";
+        nuevo.style.marginTop = "10px";
+    }
+});
+</script>
 
 
 
