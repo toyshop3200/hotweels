@@ -1717,40 +1717,6 @@ function closeModal(event) {
 
 
 
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-    const destacadoContainer = document.getElementById('carouselDestacado');
-    const nuevoContainer = document.getElementById('carouselNuevo');
-
-    if (destacadoContainer && nuevoContainer) {
-        const tituloDestacado = destacadoContainer.querySelector('.carousel-title');
-        const tituloNuevo = nuevoContainer.querySelector('.carousel-title');
-
-        function ajustarSecciones() {
-            const ancho = window.innerWidth;
-
-            // Márgenes generales
-            if (tituloDestacado) tituloDestacado.style.marginBottom = '5px';
-            destacadoContainer.style.marginBottom = '10px';
-            if (tituloNuevo) tituloNuevo.style.marginBottom = '3px';
-            nuevoContainer.style.marginTop = '0px';
-
-            // Ajustes para pantallas pequeñas
-            if (ancho < 768) {
-                if (tituloDestacado) tituloDestacado.style.marginBottom = '3px';
-                destacadoContainer.style.marginBottom = '5px';
-                if (tituloNuevo) tituloNuevo.style.marginBottom = '2px';
-                nuevoContainer.style.marginTop = '2px';
-            }
-        }
-
-        // Ejecuta al cargar y al redimensionar
-        ajustarSecciones();
-        window.addEventListener('resize', ajustarSecciones);
-    }
-});
-</script>
-
 
 
 
