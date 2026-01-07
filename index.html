@@ -2170,6 +2170,41 @@ function closeModal(event) {
 
 
 
+<!-- Dropdown para filtrar -->
+<select id="filtroStock">
+  <option value="todos">Todos</option>
+  <option value="existente">Stock existente</option>
+  <option value="cero">Stock en cero</option>
+</select>
+
+<!-- Ejemplo de catálogo -->
+<div class="carro" data-stock="3">Batimóvil - 3 en stock</div>
+<div class="carro" data-stock="0">Supercar - Sin stock</div>
+<div class="carro" data-stock="5">Robin Car - 5 en stock</div>
+<div class="carro" data-stock="0">Auto Raro - Sin stock</div>
+
+<script>
+(function() {
+  const filtro = document.getElementById('filtroStock');
+  const carros = document.querySelectorAll('.carro');
+
+  filtro.addEventListener('change', () => {
+    const valor = filtro.value; // "todos", "existente" o "cero"
+
+    carros.forEach(carro => {
+      const cantidad = parseInt(carro.getAttribute('data-stock'), 10);
+      let mostrar = true;
+
+      if (valor === 'existente') mostrar = cantidad > 0;
+      if (valor === 'cero') mostrar = cantidad === 0;
+
+      carro.style.display = mostrar ? 'block' : 'none';
+    });
+  });
+})();
+</script>
+
+
 
 
 
