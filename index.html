@@ -181,6 +181,46 @@
 
 
 
+
+    
+
+<!-- === Carrusel PREMIUM === -->
+<div class="carousel-container" id="carouselClase">
+
+  <h2 class="carousel-title">PREMIUM</h2>
+
+  <div class="carousel" id="carouselClaseItems">
+
+    <div class="carousel-item">
+      <div class="product">
+        <img src="img/c1.jpg" alt="Carro Clase" onclick="openModal(this)">
+        <div class="name">HOT WHEELS CLASE A</div>
+        <div class="brand">HOTWHEELS</div>
+        <div class="price">$90 MXN</div>
+        <div class="stock">Existencias: 10</div>
+        <div class="category">CLASE</div>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <div class="product">
+        <img src="img/c2.jpg" alt="Carro Clase" onclick="openModal(this)">
+        <div class="name">HOT WHEELS CLASE B</div>
+        <div class="brand">HOTWHEELS</div>
+        <div class="price">$85 MXN</div>
+        <div class="stock">Existencias: 7</div>
+        <div class="category">CLASE</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+    
+
+
 <!-- Carrusel LO DESTACADO -->
 <div class="carousel-container" id="carouselDestacado">
     <h2 class="carousel-title">LO DESTACADO</h2>
@@ -2416,7 +2456,34 @@ function closeModal(event) {
 </script>
 
 
+<!--  MODAL SIMPLE DE CARUSEL PREMIUM -->
+<div id="modalSimple" class="modal" onclick="cerrarModal(event)">
+<span class="cerrar">&times;</span>
+<img id="imgModal" class="modal-img">
+</div>
 
+
+    <script>
+function openModal(img) {
+const modal = document.getElementById("modalSimple");
+const modalImg = document.getElementById("imgModal");
+
+modal.style.display = "flex";
+modalImg.src = img.src;
+}
+
+// 👇 evita que se cierre cuando tocas la imagen
+document.getElementById("imgModal").addEventListener("click", function(e) {
+e.stopPropagation();
+});
+
+function cerrarModal(e) {
+// solo cierra si das click fuera de la imagen
+if (e.target.id === "modalSimple" || e.target.classList.contains("cerrar")) {
+document.getElementById("modalSimple").style.display = "none";
+}
+}
+</script>
 
 
 
