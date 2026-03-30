@@ -2450,7 +2450,29 @@ function closeModal(event) {
 </script>
 
 
+<script>
+let premiumIndex = 0;
 
+function nextPremium() {
+const carousel = document.getElementById("carouselPremiumItems");
+const items = carousel.children;
+
+if (items.length <= 1) return; // 👈 si solo hay uno, no se mueve
+
+premiumIndex = (premiumIndex + 1) % items.length;
+carousel.style.transform = `translateX(-${premiumIndex * 100}%)`;
+}
+
+function prevPremium() {
+const carousel = document.getElementById("carouselPremiumItems");
+const items = carousel.children;
+
+if (items.length <= 1) return;
+
+premiumIndex = (premiumIndex - 1 + items.length) % items.length;
+carousel.style.transform = `translateX(-${premiumIndex * 100}%)`;
+}
+</script>
 
 
 
