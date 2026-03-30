@@ -2485,13 +2485,31 @@ carousel.style.transform = `translateX(-${premiumIndex * 100}%)`;
 </script>
 
 
+<script>
+let premiumIndex = 0;
+
+function nextPremium() {
+const carousel = document.getElementById("carouselPremiumItems");
+
+// 👇 usa scroll horizontal (como los otros carruseles)
+carousel.scrollBy({
+left: carousel.offsetWidth,
+behavior: "smooth"
+});
+}
+
+function prevPremium() {
+const carousel = document.getElementById("carouselPremiumItems");
+
+carousel.scrollBy({
+left: -carousel.offsetWidth,
+behavior: "smooth"
+});
+}
+</script>
+    
 
 
-
-
-
-</body>
-</html>
 
 
 
