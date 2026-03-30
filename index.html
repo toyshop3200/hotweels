@@ -181,40 +181,35 @@
 
 
 
+	
 <!-- === CARRUSEL PREMIUM === -->
-<div class="carousel-container">
+<div class="carousel-container" id="carouselPremium">
 
 <h2 class="carousel-title">PREMIUM</h2>
 
 <!-- 🔥 BOTÓN IZQUIERDA -->
-<button class="carousel-btn left" onclick="prevPremium()">❮</button>
+<button class="carousel-button left" onclick="prevPremium()">❮</button>
 
-<!-- 🔥 BOTÓN DERECHA -->
-<button class="carousel-btn right" onclick="nextPremium()">❯</button>
-
-<!-- 🔥 CONTENEDOR DEL CARRUSEL -->
+<!-- 🔥 CARRUSEL -->
 <div class="carousel" id="carouselPremiumItems">
 
-<!-- 🔹 PRODUCTO 1 -->
 <div class="carousel-item">
 <div class="product">
-<img src="img/kool kombi.jpg" alt="Carro Premium" onclick="openModal(this)">
-<div class="name">KOOL KOMBI 80 ANIVERSARIO PREMIUM</div>
+<img src="img/p1.jpg" alt="Carro Premium" onclick="openModal(this)">
+<div class="name">76 CHEVY CHEVETTE AZUL</div>
 <div class="brand">HOTWHEELS</div>
-<div class="price">$140 MXN</div>
+<div class="price">$90 MXN</div>
 <div class="stock">Existencias: 1</div>
-<div class="category">HOTWHEELS PREMIUM</div>
+<div class="category">HOTWHEELS</div>
 </div>
-</div>
-
-
-
-
-
 </div>
 
 </div>
 
+<!-- 🔥 BOTÓN DERECHA -->
+<button class="carousel-button right" onclick="nextPremium()">❯</button>
+
+</div>
 
 
 
@@ -2485,31 +2480,7 @@ carousel.style.transform = `translateX(-${premiumIndex * 100}%)`;
 </script>
 
 
-<script>
-let premiumIndex = 0;
-
-function nextPremium() {
-const carousel = document.getElementById("carouselPremiumItems");
-
-// 👇 usa scroll horizontal (como los otros carruseles)
-carousel.scrollBy({
-left: carousel.offsetWidth,
-behavior: "smooth"
-});
-}
-
-function prevPremium() {
-const carousel = document.getElementById("carouselPremiumItems");
-
-carousel.scrollBy({
-left: -carousel.offsetWidth,
-behavior: "smooth"
-});
-}
-</script>
-    
-
-
+    	
 <script>
 function nextPremium() {
 const container = document.getElementById("carouselPremiumItems");
@@ -2521,6 +2492,7 @@ const container = document.getElementById("carouselPremiumItems");
 container.scrollLeft -= container.clientWidth;
 }
 </script>
+
 
 
 
