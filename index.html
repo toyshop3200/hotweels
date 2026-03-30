@@ -183,19 +183,16 @@
 
 	
 <!-- === CARRUSEL PREMIUM === -->
-<div class="carousel-container" id="carouselPremium">
+<div class="carousel-container">
 
 <h2 class="carousel-title">PREMIUM</h2>
-
-<!-- 🔥 BOTÓN IZQUIERDA -->
-<button class="carousel-button left" onclick="prevPremium()">❮</button>
 
 <!-- 🔥 CARRUSEL -->
 <div class="carousel" id="carouselPremiumItems">
 
 <div class="carousel-item">
 <div class="product">
-<img src="img/p1.jpg" alt="Carro Premium" onclick="openModal(this)">
+<img src="img/p1.jpg" onclick="openModal(this)">
 <div class="name">76 CHEVY CHEVETTE AZUL</div>
 <div class="brand">HOTWHEELS</div>
 <div class="price">$90 MXN</div>
@@ -206,8 +203,9 @@
 
 </div>
 
-<!-- 🔥 BOTÓN DERECHA -->
-<button class="carousel-button right" onclick="nextPremium()">❯</button>
+<!-- 🔥 BOTONES EXACTOS -->
+<button class="prev" id="prevPremium">&#10094;</button>
+<button class="next" id="nextPremium">&#10095;</button>
 
 </div>
 
@@ -2494,6 +2492,22 @@ container.scrollLeft -= container.clientWidth;
 </script>
 
 
+
+<script>
+const premium = document.getElementById("carouselPremiumItems");
+
+document.getElementById("nextPremium").onclick = () => {
+premium.scrollLeft += premium.clientWidth;
+};
+
+document.getElementById("prevPremium").onclick = () => {
+premium.scrollLeft -= premium.clientWidth;
+};
+</script>
+
+
+
+	
 
 
 
