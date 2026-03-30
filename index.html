@@ -192,7 +192,7 @@
 <!-- 🔥 BOTÓN DERECHA -->
 <button class="carousel-btn right" onclick="nextPremium()">❯</button>
 
-<!-- 🔥 CARRUSEL -->
+<!-- 🔥 CONTENEDOR DEL CARRUSEL -->
 <div class="carousel" id="carouselPremiumItems">
 
 <!-- 🔹 PRODUCTO 1 -->
@@ -209,7 +209,7 @@
 
 
 
-    
+
 
 </div>
 
@@ -2510,7 +2510,17 @@ behavior: "smooth"
     
 
 
+<script>
+function nextPremium() {
+const container = document.getElementById("carouselPremiumItems");
+container.scrollLeft += container.clientWidth;
+}
 
+function prevPremium() {
+const container = document.getElementById("carouselPremiumItems");
+container.scrollLeft -= container.clientWidth;
+}
+</script>
 
 
 
