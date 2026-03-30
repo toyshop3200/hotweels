@@ -2482,6 +2482,33 @@ document.getElementById("modalSimple").style.display = "none";
 
 
 
+    <script>
+function ajustarModalPC() {
+const modalImg = document.getElementById("imgModal");
+
+// Detecta si es pantalla grande (PC)
+if (window.innerWidth > 768) {
+modalImg.style.margin = "auto";
+modalImg.style.display = "block";
+} else {
+// En celular lo deja normal
+modalImg.style.margin = "";
+}
+}
+
+// Se ejecuta al abrir el modal
+const originalOpenModal = openModal;
+
+openModal = function(img) {
+originalOpenModal(img);
+setTimeout(ajustarModalPC, 50);
+};
+</script>
+
+
+
+
+
 
 
 </body>
