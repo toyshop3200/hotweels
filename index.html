@@ -2450,60 +2450,7 @@ function closeModal(event) {
 </script>
 
 
-<!--  MODAL SIMPLE DE CARUSEL PREMIUM -->
-<div id="modalSimple" class="modal" onclick="cerrarModal(event)">
-<span class="cerrar">&times;</span>
-<img id="imgModal" class="modal-img">
-</div>
 
-
-    <script>
-function openModal(img) {
-const modal = document.getElementById("modalSimple");
-const modalImg = document.getElementById("imgModal");
-
-modal.style.display = "flex";
-modalImg.src = img.src;
-}
-
-// 👇 evita que se cierre cuando tocas la imagen
-document.getElementById("imgModal").addEventListener("click", function(e) {
-e.stopPropagation();
-});
-
-function cerrarModal(e) {
-// solo cierra si das click fuera de la imagen
-if (e.target.id === "modalSimple" || e.target.classList.contains("cerrar")) {
-document.getElementById("modalSimple").style.display = "none";
-}
-}
-</script>
-
-
-
-
-    <script>
-function ajustarModalPC() {
-const modalImg = document.getElementById("imgModal");
-
-// Detecta si es pantalla grande (PC)
-if (window.innerWidth > 768) {
-modalImg.style.margin = "auto";
-modalImg.style.display = "block";
-} else {
-// En celular lo deja normal
-modalImg.style.margin = "";
-}
-}
-
-// Se ejecuta al abrir el modal
-const originalOpenModal = openModal;
-
-openModal = function(img) {
-originalOpenModal(img);
-setTimeout(ajustarModalPC, 50);
-};
-</script>
 
 
 
