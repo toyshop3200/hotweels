@@ -185,25 +185,6 @@
 
 
 
-<div style="margin:20px; color:white; font-size:18px;">
-<label>
-<input type="checkbox" id="soloDisponibles">
-Mostrar solo disponibles
-</label>
-</div>
-
-
-
-
-
-<div style="margin:20px; color:white; font-size:18px;">
-
-<label>
-<input type="checkbox" id="soloDisponibles">
-Mostrar solo disponibles
-</label>
-
-</div>
 
 
 
@@ -2940,100 +2921,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-<script>
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    const checkbox = document.getElementById("soloDisponibles");
-
-    checkbox.addEventListener("change", () => {
-
-        // TODOS los elementos posibles
-        const productos = document.querySelectorAll(
-            ".item, .card, .producto"
-        );
-
-        productos.forEach(producto => {
-
-            const texto = producto.innerText.toLowerCase();
-
-            // Detectar agotados
-            const agotado =
-                texto.includes("agotado") ||
-                texto.includes("stock: 0") ||
-                texto.includes("existencias: 0");
-
-            if (checkbox.checked && agotado) {
-
-                producto.style.display = "none";
-
-            } else {
-
-                producto.style.display = "";
-
-            }
-
-        });
-
-    });
-
-});
-
-</script>
-
-
-
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const checkbox = document.getElementById("soloDisponibles");
-
-    checkbox.addEventListener("change", () => {
-
-        const elementos = document.querySelectorAll("p, span, div");
-
-        elementos.forEach(el => {
-
-            const texto = el.innerText
-                ? el.innerText.toLowerCase().trim()
-                : "";
-
-            const agotado =
-                texto === "stock: 0" ||
-                texto === "existencias: 0";
-
-            if (agotado) {
-
-                const producto =
-                    el.closest(".item") ||
-                    el.closest(".card") ||
-                    el.closest(".producto") ||
-                    el.parentElement;
-
-                if (producto) {
-
-                    if (checkbox.checked) {
-
-                        producto.style.display = "none";
-
-                    } else {
-
-                        producto.style.display = "";
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    });
-
-});
-
-</script>
 
 
 
