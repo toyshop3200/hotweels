@@ -2983,6 +2983,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const checkbox = document.getElementById("soloDisponibles");
+
+    checkbox.addEventListener("change", () => {
+
+        const elementos = document.querySelectorAll("p, span, div");
+
+        elementos.forEach(el => {
+
+            const texto = el.innerText
+                ? el.innerText.toLowerCase().trim()
+                : "";
+
+            const agotado =
+                texto === "stock: 0" ||
+                texto === "existencias: 0";
+
+            if (agotado) {
+
+                const producto =
+                    el.closest(".item") ||
+                    el.closest(".card") ||
+                    el.closest(".producto") ||
+                    el.parentElement;
+
+                if (producto) {
+
+                    if (checkbox.checked) {
+
+                        producto.style.display = "none";
+
+                    } else {
+
+                        producto.style.display = "";
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
+
+
+
 
 
 
