@@ -186,6 +186,14 @@
 
 
 
+<div style="margin:20px; color:white; font-size:18px;">
+<label>
+<input type="checkbox" id="soloDisponibles">
+Mostrar solo disponibles
+</label>
+</div>
+
+
 
 
 
@@ -2922,7 +2930,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+<script>
 
+document.addEventListener("DOMContentLoaded", function () {
+
+    const checkbox = document.getElementById("soloDisponibles");
+
+    checkbox.addEventListener("change", function () {
+
+        // Selecciona TODOS los posibles productos
+        const productos = document.querySelectorAll(
+            ".item, .card, .producto, .swiper-slide, .carousel-item"
+        );
+
+        productos.forEach(producto => {
+
+            const texto = producto.innerText.toLowerCase();
+
+            const agotado =
+                texto.includes("agotado") ||
+                texto.includes("stock: 0") ||
+                texto.includes("existencias: 0");
+
+            if (checkbox.checked) {
+
+                if (agotado) {
+                    producto.style.display = "none";
+                }
+
+            } else {
+
+                producto.style.display = "";
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
 
 
 
