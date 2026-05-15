@@ -2871,7 +2871,27 @@ premium.scrollLeft -= premium.clientWidth;
 
 
 
-	
+	<script>
+const checkbox = document.getElementById("filtroStock");
+
+checkbox.addEventListener("change", function () {
+
+    const agotados = document.querySelectorAll(".agotado");
+
+    agotados.forEach(producto => {
+
+        if (checkbox.checked) {
+            producto.style.display = "none";
+        } else {
+            producto.style.display = "block";
+        }
+
+    });
+
+});
+</script>
+
+
 
 
 
