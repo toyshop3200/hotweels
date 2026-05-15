@@ -2938,10 +2938,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkbox.addEventListener("change", function () {
 
-        // Selecciona TODOS los posibles productos
-        const productos = document.querySelectorAll(
-            ".item, .card, .producto, .swiper-slide, .carousel-item"
-        );
+        // Busca MUCHOS posibles contenedores
+        const productos = document.querySelectorAll(`
+            .item,
+            .card,
+            .producto,
+            .product,
+            .box,
+            .swiper-slide,
+            .carousel-item,
+            .contenedor-producto,
+            .catalogo-item
+        `);
 
         productos.forEach(producto => {
 
@@ -2950,12 +2958,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const agotado =
                 texto.includes("agotado") ||
                 texto.includes("stock: 0") ||
-                texto.includes("existencias: 0");
+                texto.includes("stock 0") ||
+                texto.includes("existencias: 0") ||
+                texto.includes("existencias 0");
 
             if (checkbox.checked) {
 
                 if (agotado) {
+
                     producto.style.display = "none";
+
                 }
 
             } else {
@@ -2971,8 +2983,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
-
-
 
 
 
