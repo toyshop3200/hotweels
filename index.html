@@ -121,11 +121,6 @@
 
 
 
-<label style="color:white; font-size:18px;">
-    <input type="checkbox" id="soloDisponibles">
-    Mostrar solo disponibles
-</label>
-
 
 
 
@@ -187,6 +182,19 @@
     <span class="neon-text">Toy Shop</span>
   </div>
 </div>
+
+
+
+<div style="margin:20px; color:white; font-size:18px;">
+
+<label>
+<input type="checkbox" id="soloDisponibles">
+Mostrar solo disponibles
+</label>
+
+</div>
+
+
 
 
 
@@ -2917,6 +2925,51 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 </script>
+
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const checkbox = document.getElementById("soloDisponibles");
+
+    checkbox.addEventListener("change", () => {
+
+        // TODOS los elementos posibles
+        const productos = document.querySelectorAll(
+            ".item, .card, .producto"
+        );
+
+        productos.forEach(producto => {
+
+            const texto = producto.innerText.toLowerCase();
+
+            // Detectar agotados
+            const agotado =
+                texto.includes("agotado") ||
+                texto.includes("stock: 0") ||
+                texto.includes("existencias: 0");
+
+            if (checkbox.checked && agotado) {
+
+                producto.style.display = "none";
+
+            } else {
+
+                producto.style.display = "";
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
+
 
 
 
