@@ -2871,7 +2871,43 @@ premium.scrollLeft -= premium.clientWidth;
 
 
 
+<script>
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    const checkbox = document.getElementById("soloDisponibles");
+
+    checkbox.addEventListener("change", () => {
+
+        // Busca TODOS los productos
+        const productos = document.querySelectorAll(".card");
+
+        productos.forEach(producto => {
+
+            const texto = producto.innerText.toLowerCase();
+
+            // Detecta stock 0 o existencias 0
+            const agotado =
+                texto.includes("stock: 0") ||
+                texto.includes("existencias: 0");
+
+            if (checkbox.checked && agotado) {
+
+                producto.style.display = "none";
+
+            } else {
+
+                producto.style.display = "block";
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>
 
 
 
